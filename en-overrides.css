@@ -1,0 +1,501 @@
+/* ============================================================
+   GEMMANEW 英文站样式覆盖
+   原 WordPress 站点是中文版式，英文文字通常比中文长 1.5-2 倍，
+   所有翻译后导致的排版问题统一在这里调整，不动原 HTML。
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   首页产品轮播 (metaslider #2225)
+   原 HTML 在 caption 子 div 用了 inline style line-height:2.3/2.4，
+   翻译后英文标题被逐词换行 + 行间距过大。
+   并且 caption 有两种嵌套结构（直接放 / 多包一层 div），
+   靠 :first-child/:last-child 区分标题/按钮不可靠。
+
+   策略：caption 固定高度 + flex 居中标题 + 按钮绝对定位贴底。
+   ------------------------------------------------------------ */
+
+/* 压住所有 inline style 的 line-height，让每个标题最多 1-2 行 */
+#metaslider_2225 .caption-wrap,
+#metaslider_2225 .caption-wrap *,
+#metaslider_2225 .caption,
+#metaslider_2225 .caption *,
+#metaslider_2225 .caption div,
+#metaslider_2225 .caption span,
+#metaslider_2225 .caption strong {
+  line-height: 1.25 !important;
+}
+
+/* caption 容器：标题全部强制 1 行 + 居中按钮上方 */
+#metaslider_2225 .caption-wrap .caption {
+  min-height: 110px;
+  padding: 8px 4px 78px 4px;     /* 底 78 = 按钮 32 + 留白 35 + 间距 11 */
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+/* caption 内部所有 div / span 不再控制布局，恢复 inline 行为 */
+#metaslider_2225 .caption-wrap .caption > div,
+#metaslider_2225 .caption-wrap .caption > div > div {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* 标题强制 1 行 + 字号缩小到所有标题都能 fit 进卡片宽度 */
+#metaslider_2225 .caption-wrap .caption strong,
+#metaslider_2225 .caption-wrap .caption strong span {
+  white-space: nowrap !important;     /* 强制不换行 */
+}
+#metaslider_2225 .caption-wrap .caption strong span {
+  font-size: 11px !important;
+  font-weight: 700;
+  letter-spacing: 0 !important;
+  display: inline-block;
+}
+
+/* "View more" 按钮：绝对定位到 caption 底部正中，
+   所有卡片的按钮永远在同一水平线上，底部留白 35px */
+#metaslider_2225 .caption .ms-custom-button {
+  position: absolute !important;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block !important;
+  padding: 7px 22px !important;
+  white-space: nowrap;
+  font-size: 12px !important;
+  border-radius: 2px;
+  line-height: 1.2 !important;
+  z-index: 2;
+}
+
+
+/* ------------------------------------------------------------
+   页脚菜单 (wp-block-uagb-icon-list)
+   问题：Design Solutions / About GEMMANEW / Become a Distributor
+        因为英文比中文长，在窄列里被换成 2 行，跟其他单行菜单不齐
+   解决：让所有菜单项强制 1 行 + 字号微调
+   ------------------------------------------------------------ */
+.wp-block-uagb-icon-list .uagb-icon-list__label,
+.wp-block-uagb-icon-list .uagb-icon-list__label a,
+.wp-block-uagb-icon-list .uagb-icon-list__label strong {
+  white-space: nowrap !important;
+}
+
+/* 字号微调，让最长的 "Become a Distributor" 也能在窄列里 fit */
+.wp-block-uagb-icon-list .uagb-icon-list__label {
+  font-size: 14px !important;
+}
+
+
+/* ------------------------------------------------------------
+   首页 Product Technology Advantages 蓝色块列表
+   (uagb-block-5b6b4a66 容器内的 wp-block-list)
+   问题：6 条技术大事记句子较长，中文紧凑而英文宽松，加上原
+        inline style letter-spacing:1.5px + line-height:2.5，
+        多条句子被换行成 2 行。
+   解决：字号缩小 + letter-spacing 归零 + nowrap，让每条 1 行
+   ------------------------------------------------------------ */
+.uagb-block-5b6b4a66 .wp-block-list,
+.uagb-block-5b6b4a66 .wp-block-list li {
+  letter-spacing: 0 !important;
+  line-height: 2.5 !important;
+}
+
+.uagb-block-5b6b4a66 .wp-block-list li {
+  font-size: 15px !important;
+  white-space: nowrap !important;
+}
+
+
+/* ------------------------------------------------------------
+   首页 Design Solutions 6 个行业卡片
+   (uagb-block-4fb7b38f / uagb-block-8957e208 — 上下两排)
+   问题：VIEW MORE 按钮下方留白太少
+   解决：让 wp-block-cover 内容贴底，padding-bottom 30px
+   ------------------------------------------------------------ */
+.uagb-block-4fb7b38f .wp-block-cover .wp-block-cover__inner-container,
+.uagb-block-8957e208 .wp-block-cover .wp-block-cover__inner-container {
+  justify-content: flex-end !important;
+  padding-bottom: 30px !important;
+}
+
+
+/* ------------------------------------------------------------
+   首页 Space Service Support 3 张支持卡片
+   (uagb-block-4edc5659)
+   问题：单行 vs 双行标题 → 下划线位置不齐 / 之前 separator 被推
+        到文字中间是因为 inner-container 默认垂直居中
+   解决：inner-container flex column + 内容贴底，标题区固定高度
+        容纳 2 行，单行文字贴底显示，分隔线永远紧跟标题下方
+   ------------------------------------------------------------ */
+
+/* inner-container：把所有内容贴 cover 底部，留 40px 底部空间 */
+.uagb-block-4edc5659 .wp-block-cover .wp-block-cover__inner-container {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end !important;
+  align-items: center;
+  padding-bottom: 40px !important;
+  width: 100%;
+}
+
+/* 标题段落：固定 2 行高度，单行也用底部对齐 */
+.uagb-block-4edc5659 .wp-block-cover .wp-block-cover__inner-container > p {
+  min-height: 2.5em;
+  display: flex !important;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0 0 12px 0 !important;
+  width: 100%;
+}
+
+/* 分隔线：横线长度匹配标题宽度，3 张卡片对齐 */
+.uagb-block-4edc5659 .wp-block-cover .wp-block-uagb-separator {
+  display: block !important;
+  width: 100%;
+  margin-top: 40px !important;
+}
+.uagb-block-4edc5659 .wp-block-cover .uagb-separator-spacing-wrapper {
+  display: block !important;
+  width: 100%;
+  text-align: center;
+}
+.uagb-block-4edc5659 .wp-block-cover .wp-block-uagb-separator__inner {
+  display: block !important;
+  width: 120px !important;
+  margin: 0 auto !important;
+  height: 0 !important;
+  border-top: 3px solid #ffffff !important;
+}
+
+
+/* ------------------------------------------------------------
+   首页所有 section 标题（h2 主标题 + h6 行业卡片）大写
+   纯 CSS text-transform：HTML 文本不变，SEO 完全不受影响
+   ------------------------------------------------------------ */
+h2.wp-block-heading,
+h2.wp-block-heading strong,
+h2.wp-block-heading a,
+h3.wp-block-heading,
+h3.wp-block-heading strong,
+h3.wp-block-heading a,
+h6.wp-block-heading,
+h6.wp-block-heading strong,
+h6.wp-block-heading a {
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px;
+}
+
+
+/* ------------------------------------------------------------
+   顶部导航 Products / Design Solutions 等下拉菜单
+   问题：英文菜单项较长，被换成多行
+   解决：每一项强制单行 + 行间距 2
+   ------------------------------------------------------------ */
+.main-header-bar-navigation .sub-menu .menu-link,
+.main-header-bar-navigation .sub-menu a {
+  white-space: nowrap !important;
+  line-height: 1 !important;
+}
+/* 下拉容器宽度自动扩展以容纳最长菜单项 */
+.main-header-bar-navigation .sub-menu {
+  min-width: max-content;
+}
+
+
+/* ------------------------------------------------------------
+   Design Solutions 页 (design.html)
+   - h3 主标题大写已由全局 h3.wp-block-heading 规则覆盖
+   - 引言段宽度收窄到 alignwide（1140px），和下方 6 个行业卡片对齐
+   ------------------------------------------------------------ */
+.wp-elements-2ea51189171549b9b95928c0b0eda557 {
+  max-width: 1140px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  box-sizing: border-box;
+}
+
+
+/* ------------------------------------------------------------
+   Healthcare 页 (p=2102) — 9 个项目案例卡片（3 排 × 3 张）
+   - 三排容器 ID: 4fb7b38f / ae4727a6 / d1769eb2
+   - 第 1 排 ID 与首页/design.html 共用，所以这里用 body.page-id-2102 限定
+   - 要求：所有卡片按钮距底部留白 20px、末两排按钮垂直对齐
+   - 方法：inner-container flex column + justify-content:flex-end
+           → 按钮贴底，长短标题不影响按钮水平线对齐
+   ------------------------------------------------------------ */
+body.page-id-2102 .uagb-block-4fb7b38f .wp-block-cover .wp-block-cover__inner-container,
+body.page-id-2102 .uagb-block-ae4727a6 .wp-block-cover .wp-block-cover__inner-container,
+body.page-id-2102 .uagb-block-d1769eb2 .wp-block-cover .wp-block-cover__inner-container {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-end !important;
+  padding-bottom: 20px !important;
+}
+
+
+/* ------------------------------------------------------------
+   服务支持 - 文件下载页 (page-id-5253, servicesupport/filedownload.html)
+   - 11 个 PDF 下载条目，原 WP 默认布局：文件名 + Download 按钮同行右侧
+   - 要求：
+     · 按钮放在文件名下方（垂直布局）
+     · 文件名和按钮左对齐
+     · 距色块左边留白 10px
+     · 文档名尽量一行（nowrap + 字号收紧）
+   ------------------------------------------------------------ */
+body.page-id-5253 .wp-block-file {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start !important;
+  padding-left: 10px !important;
+}
+
+/* 文件名链接：单行 + 收紧字号让长名也能一行 */
+body.page-id-5253 .wp-block-file > a:not(.wp-block-file__button) {
+  white-space: nowrap;
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+/* 下载按钮：左对齐紧贴文件名下方 */
+body.page-id-5253 .wp-block-file__button {
+  margin: 0 !important;
+  align-self: flex-start;
+}
+
+
+/* ------------------------------------------------------------
+   About GEMMANEW 三模块对齐 (page-id-1895)
+   - 结构问题：Mission 和 Vision 各被一层 UAGB 容器（2f449a82/7f5eaea1）包裹，
+     而 Values（8cfc9c8c）裸露在 root 下，导致三者大小不一
+   - 方案：把 Mission/Vision 的外包容器层用 display:contents 透明化，
+     三个 inline-notice 直接成为 root 同级子元素 → 再 flex 3 列等宽等高
+   ------------------------------------------------------------ */
+
+/* 中间容器层和它的 inner-blocks-wrap 透明化（适用于所有用到这组块 ID 的页面：about-gemmanew.html / about-gemmanew/about.html 等） */
+.uagb-block-2f449a82,
+.uagb-block-2f449a82 > .uagb-container-inner-blocks-wrap,
+.uagb-block-7f5eaea1,
+.uagb-block-7f5eaea1 > .uagb-container-inner-blocks-wrap {
+  display: contents !important;
+}
+
+/* root 三列 flex 等宽等高，清掉 UAGB 默认 min-height */
+.uagb-block-426170a0,
+.uagb-block-426170a0 > .uagb-container-inner-blocks-wrap {
+  min-height: 0 !important;
+  height: auto !important;
+}
+.uagb-block-426170a0 > .uagb-container-inner-blocks-wrap {
+  display: flex !important;
+  flex-direction: row;
+  gap: 20px;
+  align-items: stretch !important;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 767px) {
+  .uagb-block-426170a0 > .uagb-container-inner-blocks-wrap {
+    flex-direction: column;
+  }
+}
+
+/* 三个 inline-notice 平分宽度 + 等高（底部对齐），min-width:0 防止内容撑爆 flex */
+.uagb-block-426170a0 .wp-block-uagb-inline-notice {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: auto !important;
+  align-self: stretch !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column;
+}
+
+/* 收紧 header 和 body 区的上下 padding，去掉文字下方多余留白 */
+.uagb-block-426170a0 .wp-block-uagb-inline-notice .uagb-notice-title {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+.uagb-block-426170a0 .wp-block-uagb-inline-notice .uagb-notice-text {
+  flex: 1 1 auto !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+.uagb-block-426170a0 .wp-block-uagb-inline-notice .uagb-notice-text p {
+  margin: 0 !important;
+}
+
+
+/* ------------------------------------------------------------
+   Join GEMMANEW 页 (page-id-2048) — 图文双列区
+   [文档1 #14 的"顶对齐" 已被文档3 #5 "等高" 取代, 见下方]
+   ------------------------------------------------------------ */
+
+
+/* ------------------------------------------------------------
+   文档2 #3 三级花色展示页 — 样块内图片水平居中
+   覆盖 12 个产品系列列表页:
+     1695 Centra (PVC Homogeneous Coiled)
+     2000 WEGO  (PVC Multi-Layer 现已显示 Heterogeneous Sheet)
+     2003 Elephant (Rubber)
+     2006 Pinger (Scald-Resistant Waterproof)
+     2008 Yinger (Quartz)
+     2010 Senger (SPC)
+     2012 Linger (LVT)
+     2014 Elektra (PVC Homogeneous)
+     2017 OneStep (PVC Quartz-Sand)
+     2019 Health (PVC Multi-Layer 现已显示 Heterogeneous)
+     2021 Wall Materials
+     2023 Security Doors
+   ------------------------------------------------------------ */
+body:is(
+  .page-id-1695, .page-id-2000, .page-id-2003, .page-id-2006,
+  .page-id-2008, .page-id-2010, .page-id-2012, .page-id-2014,
+  .page-id-2017, .page-id-2019, .page-id-2021, .page-id-2023
+) .wp-block-cover__inner-container figure.wp-block-image.is-resized {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+body:is(
+  .page-id-1695, .page-id-2000, .page-id-2003, .page-id-2006,
+  .page-id-2008, .page-id-2010, .page-id-2012, .page-id-2014,
+  .page-id-2017, .page-id-2019, .page-id-2021, .page-id-2023
+) .wp-block-cover__inner-container figure.wp-block-image.is-resized > a {
+  display: inline-block;
+}
+
+
+/* ------------------------------------------------------------
+   文档2 #4 三级产品详情页 hero 双列等高 + 右侧字号缩小
+   覆盖所有产品详情页 (parent-pageid 为 12 个产品系列列表页之一)
+   ID: uagb-block-2652f292 是所有产品详情页 hero 共用 root container
+   ------------------------------------------------------------ */
+body:is(
+  .parent-pageid-1695, .parent-pageid-2000, .parent-pageid-2003, .parent-pageid-2006,
+  .parent-pageid-2008, .parent-pageid-2010, .parent-pageid-2012, .parent-pageid-2014,
+  .parent-pageid-2017, .parent-pageid-2019, .parent-pageid-2021, .parent-pageid-2023
+) .uagb-block-2652f292 > .uagb-container-inner-blocks-wrap {
+  display: flex !important;
+  align-items: stretch !important;
+  flex-wrap: nowrap;
+}
+body:is(
+  .parent-pageid-1695, .parent-pageid-2000, .parent-pageid-2003, .parent-pageid-2006,
+  .parent-pageid-2008, .parent-pageid-2010, .parent-pageid-2012, .parent-pageid-2014,
+  .parent-pageid-2017, .parent-pageid-2019, .parent-pageid-2021, .parent-pageid-2023
+) .uagb-block-2652f292 > .uagb-container-inner-blocks-wrap > div {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+}
+body:is(
+  .parent-pageid-1695, .parent-pageid-2000, .parent-pageid-2003, .parent-pageid-2006,
+  .parent-pageid-2008, .parent-pageid-2010, .parent-pageid-2012, .parent-pageid-2014,
+  .parent-pageid-2017, .parent-pageid-2019, .parent-pageid-2021, .parent-pageid-2023
+) .uagb-block-2652f292 > .uagb-container-inner-blocks-wrap > .wp-block-cover {
+  min-height: 100% !important;
+  align-self: stretch !important;
+}
+body:is(
+  .parent-pageid-1695, .parent-pageid-2000, .parent-pageid-2003, .parent-pageid-2006,
+  .parent-pageid-2008, .parent-pageid-2010, .parent-pageid-2012, .parent-pageid-2014,
+  .parent-pageid-2017, .parent-pageid-2019, .parent-pageid-2021, .parent-pageid-2023
+) .uagb-block-2652f292 ul.wp-block-list,
+body:is(
+  .parent-pageid-1695, .parent-pageid-2000, .parent-pageid-2003, .parent-pageid-2006,
+  .parent-pageid-2008, .parent-pageid-2010, .parent-pageid-2012, .parent-pageid-2014,
+  .parent-pageid-2017, .parent-pageid-2019, .parent-pageid-2021, .parent-pageid-2023
+) .uagb-block-2652f292 ul.wp-block-list li {
+  font-size: 14px !important;
+  line-height: 2 !important;
+}
+body:is(
+  .parent-pageid-1695, .parent-pageid-2000, .parent-pageid-2003, .parent-pageid-2006,
+  .parent-pageid-2008, .parent-pageid-2010, .parent-pageid-2012, .parent-pageid-2014,
+  .parent-pageid-2017, .parent-pageid-2019, .parent-pageid-2021, .parent-pageid-2023
+) .uagb-block-2652f292 p.wp-block-paragraph[style*="font-size:24px"] {
+  font-size: 20px !important;
+}
+
+
+/* ------------------------------------------------------------
+   文档3 #1~#4 + SPC 产品系列页 hero 双列等高 + 字号缩
+   覆盖 5 个系列页 (本身的 page-id):
+     2006 Carbon-Crystal Click Flooring
+     2008 Quartz Flooring
+     2010 SPC Stone Flooring        ← 追加
+     2017 PVC Quartz-Sand Wear-Resistant
+     2019 PVC Heterogeneous Sports
+   结构跟详情页一样用 uagb-block-2652f292
+   ------------------------------------------------------------ */
+body:is(.page-id-2006, .page-id-2008, .page-id-2010, .page-id-2017, .page-id-2019)
+  .uagb-block-2652f292 > .uagb-container-inner-blocks-wrap {
+  display: flex !important;
+  align-items: stretch !important;
+  flex-wrap: nowrap;
+}
+body:is(.page-id-2006, .page-id-2008, .page-id-2010, .page-id-2017, .page-id-2019)
+  .uagb-block-2652f292 > .uagb-container-inner-blocks-wrap > div {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+}
+body:is(.page-id-2006, .page-id-2008, .page-id-2010, .page-id-2017, .page-id-2019)
+  .uagb-block-2652f292 > .uagb-container-inner-blocks-wrap > .wp-block-cover {
+  min-height: 100% !important;
+  align-self: stretch !important;
+}
+body:is(.page-id-2006, .page-id-2008, .page-id-2010, .page-id-2017, .page-id-2019)
+  .uagb-block-2652f292 ul.wp-block-list,
+body:is(.page-id-2006, .page-id-2008, .page-id-2010, .page-id-2017, .page-id-2019)
+  .uagb-block-2652f292 ul.wp-block-list li {
+  font-size: 14px !important;
+  line-height: 1.9 !important;
+}
+
+
+/* ------------------------------------------------------------
+   文档3 #5 Join 页 (page-id-2048) 图文等高
+   覆盖文档1 #14 的 flex-start (顶对齐) → 改为 stretch (等高)
+   ------------------------------------------------------------ */
+body.page-id-2048 .uagb-block-846fdd76 > .uagb-container-inner-blocks-wrap,
+body.page-id-2048 .uagb-block-9cc541f4 > .uagb-container-inner-blocks-wrap {
+  align-items: stretch !important;
+  display: flex !important;
+}
+/* 左右两列等宽 */
+body.page-id-2048 .uagb-block-846fdd76 > .uagb-container-inner-blocks-wrap > div,
+body.page-id-2048 .uagb-block-9cc541f4 > .uagb-container-inner-blocks-wrap > div {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+}
+/* 图片所在容器: 让 figure 撑满该容器高度 */
+body.page-id-2048 .uagb-block-846fdd76 .wp-block-uagb-container > figure.wp-block-image,
+body.page-id-2048 .uagb-block-9cc541f4 .wp-block-uagb-container > figure.wp-block-image {
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+}
+body.page-id-2048 .uagb-block-846fdd76 .wp-block-uagb-container > figure.wp-block-image img,
+body.page-id-2048 .uagb-block-9cc541f4 .wp-block-uagb-container > figure.wp-block-image img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+
+
+
