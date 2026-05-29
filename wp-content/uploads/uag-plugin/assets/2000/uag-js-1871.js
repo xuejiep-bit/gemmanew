@@ -25,6 +25,15 @@ window.addEventListener( 'load', function() {
 	UAGBButtonChild.init( '.uagb-block-ece2787b' );
 });
 window.addEventListener( 'load', function() {
+	UAGBButtonChild.init( '.uagb-block-b4e8a3be' );
+});
+window.addEventListener( 'load', function() {
 	UAGBButtonChild.init( '.uagb-block-a38f5bf1' );
+});
+window.addEventListener( 'load', function() {
+	UAGBButtonChild.init( '.uagb-block-d5f2b8bc' );
+});
+window.addEventListener( 'load', function() {
+	UAGBButtonChild.init( '.uagb-block-250be951' );
 });
  });
