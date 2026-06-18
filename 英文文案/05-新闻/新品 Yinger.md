@@ -1,0 +1,19 @@
+<!-- 源文件: news/newproduct-yinger.html -->
+<!-- 网页 <title>: New Release | Need high wear resistance and custom design? Yige Quartz Flooring — built for project customization. -->
+
+In today's contract market, flooring selection is shifting from single-dimension wear resistance to all-round performance. As green-building and healthy-space principles continue to evolve, project teams need flooring that can handle heavy foot traffic while being seamless, eco-friendly, and lightweight.
+
+Built on a natural-quartz core and complemented by flexible PVC, this product uses industry-leading sheet manufacturing to deliver a more seamless and pristine foundation for large public spaces.
+
+Core Specifications: The preferred choice for seamless installation Yige Quartz Flooring features large-format sheet sizes to minimise seams, enhancing the visual flow of space and elevating hygiene standards: Standard Specifications: 2 m (W) × 20 m (L) 2 m (W) × 15 m (L) Thickness Options: 2.0–3.0 mm (custom thicknesses available per project)
+
+Solid as stone, with built-in resilience The homogeneous quartz layer delivers outstanding wear resistance — withstanding heavy rolling loads and frequent foot traffic while remaining like new for years. High resilience and impact absorption provide comfortable underfoot feedback during prolonged standing and walking — surpassing terrazzo and epoxy floors. Safety First. Quiet Spaces. – Class B1 fire-retardant rating, meeting the strict fire-safety standards of public-building projects – Specially treated slip-resistant surface grips even better when wet, significantly reducing slip-and-fall risk in public spaces – Reduces noise by about 20 dB — creates hospital- and library-grade quiet environments Ultra-Thin & Lightweight — Built for Renovation Projects Just 2–3 mm thick at 3–5 kg/m² — over 90% lighter than traditional stone. Reduces structural load in high-rises — the preferred solution for retrofitting older buildings. Corrosion-Resistant. Recyclable. Resists common acid and alkali chemicals — ideal for laboratories, research facilities, and other specialised environments. Fully recyclable, supporting green-building goals.
+
+Every project is different — Yige delivers a custom answer. We understand that every contract project has its own design language and technical requirements. As your project partner, Yige offers: Custom Specifications — Available in multiple thicknesses for both tiles and sheets, matching diverse functional needs. Performance Enhancement — Custom enhanced corrosion-resistance or anti-static performance available for cleanrooms and precision workshops. Aesthetic Customisation — Helps designers realise specific colours and textures, turning the floor into an extension of the spatial design.
+
+🏥 Healthcare Antibacterial, easy to clean, acid- and alkali-resistant, with superior slip resistance — meeting hospital infection-control standards. 🏫 Education Phthalate-free and ultra-low TVOC — supporting healthy environments for children and young people. 🏢 Commercial & Office 20 dB sound dampening relieves stress; rich custom colour options strengthen brand identity. ✈️ Transportation Hubs Outstanding wear resistance — handles continuous luggage-wheel rolling and heavy foot traffic with ease. 🏭 Industrial Corrosion-resistant and easy to maintain — meeting the strict standards of laboratories and cleanrooms. 🏨 Hospitality & F&B Balances aesthetics with functionality, supporting a wide range of design styles.
+
+Yige is not just a product — it's an environmental commitment. Made from renewable resources to support sustainable construction, it helps projects achieve green-building certifications with ease.
+
+If you're looking for a high-performance flooring solution that adapts closely to your project needs, contact our project consultants for catalogues, sample packs, and technical support. Phone: 0755-25509111.
+
